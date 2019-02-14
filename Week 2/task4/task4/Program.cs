@@ -1,48 +1,28 @@
 ﻿using System;
 using System.IO;
 
-namespace ConsoleApp4
+namespace task4
 {
     class Program
     {
         static void Main(string[] args)
         {
-            string pathString = Path.Combine(@"C:\path");
-            string fileName = "example.txt";
-            pathString = Path.Combine(pathString, fileName);
-            FileStream fs = File.Create(pathString);
+            //Считываю путь, где надо создать файл
+            string path1 = Console.ReadLine();
+            //Считываю путь, куда надо скопировать файл
+            string path2 = Console.ReadLine();
+            //Комбинирую первый путь с названием файла
+            path1 = Path.Combine(path1, "example.txt");
+            //Комбинирую второй путь с названием файла
+            path2 = Path.Combine(path2, "example.txt");
+            //Создаю файл по первому пути
+            FileStream fs = File.Create(path1);
             //Закрываю поток
             fs.Close();
-
-
-            //Источник
-            string sourcePath = @"C:\path";
-            // Цель
-            string targetPath = @"C:\path1";
-            string sourceFile = Path.Combine(sourcePath, fileName);
-            string destFile = Path.Combine(targetPath, fileName);
-
-            Directory.CreateDirectory(targetPath);
-
-            // Чтобы скопировать файл в другое место 
-            // и перезаписать файл назначения, если он уже существует.
-
-            File.Copy(sourceFile, destFile, true);
-
-
-            if (File.Exists(@"C:\path\example.txt"))
-            {
-                try
-                {
-                    File.Delete(@"C:\path\example.txt");
-                }
-                catch (IOException a)
-                {
-                    Console.WriteLine(a.Message);
-                    return;
-                }
-            }
-            Console.ReadKey();
+            //Копирую файл из path в path1
+            File.Copy(path1, path2, true);
+            //Удаляю файл по заданному пути
+            File.Delete(path1);              
         }
     }
 }
