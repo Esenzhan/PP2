@@ -49,7 +49,6 @@ namespace FarMan
                 Console.WriteLine(fs.Name);
                 index++;
             }
-
         }
         public void up()
         {
@@ -71,13 +70,20 @@ namespace FarMan
             DirectoryInfo director = new DirectoryInfo(path);
 
             ConsoleKeyInfo consolekey = Console.ReadKey();
-            while (true && consolekey.Key != ConsoleKey.Escape)
+            FileSystemInfo fs = null;
+            while (true)
             {
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.Clear();
                 show(path);
                 consolekey = Console.ReadKey();
-                if (consolekey.Key == ConsoleKey.UpArrow)
+                if (consolekey.Key == ConsoleKey.Escape)
+                {
+                    kursor = 0;
+                    director = director.Parent;
+                    path = director.FullName;
+                }
+                else if (consolekey.Key == ConsoleKey.UpArrow)
                 {
                     up();
                 }
@@ -95,15 +101,37 @@ namespace FarMan
                     ok = true;
                     kursor = 0;
                 }
+                else if (consolekey.Key == ConsoleKey.Enter)
+                {
+                    int k = 0;
+                    for (int i = 0; i < director.GetFileSystemInfos().Length; i++)
+                    {
+                        if (ok && director.GetFileSystemInfos()[i].Name.StartsWith("."))
+                            continue;
+                        if (kursor == k)
+                        {
+                            fs = director.GetFileSystemInfos()[i];
+                            break;
+                        }
+                        k++;
+                    }
+                    if (fs.GetType() == typeof(DirectoryInfo))
+                    {
+                        kursor = 0;
+                        director = new DirectoryInfo(fs.FullName);
+                        path = fs.FullName;
+                    }
+                    
+                }
             }
         }
-    }
-    class Program
-    {
-        static void Main(string[] args)
+        class Program
         {
-            Far_man farmanager = new Far_man();
-            farmanager.Start(@"C:\Users\123\Desktop\PP2");
+            static void Main(string[] args)
+            {
+                Far_man farmanager = new Far_man();
+                farmanager.Start(@"C:\Users\123\Desktop\PP2");
+            }
         }
     }
 }
