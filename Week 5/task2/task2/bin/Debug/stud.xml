@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<Mark xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <points>0</points>
+  <students>
+    <Mark>
+      <points>48</points>
+      <letter>F</letter>
+    </Mark>
+    <Mark>
+      <points>74</points>
+      <letter>C+</letter>
+    </Mark>
+    <Mark>
+      <points>95</points>
+      <letter>A</letter>
+    </Mark>
+    <Mark>
+      <points>56</points>
+      <letter>D+</letter>
+    </Mark>
+  </students>
+</Mark>
